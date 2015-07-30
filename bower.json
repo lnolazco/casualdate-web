@@ -1,0 +1,34 @@
+{
+  "name": "casualdate-web",
+  "version": "0.0.1",
+  "homepage": "https://github.com/strongloop/loopback-example-passport",
+  "authors": [
+    "Luis Nolazco <lnolazco@gmail.com>"
+  ],
+  "description": "Casual date website",
+  "main": "index.html",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.3.0",
+    "angular": "~1.4.3",
+    "angular-resource": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "angular-bootstrap": "~0.13.1",
+    "angular-cookies": "~1.4.3",
+    "select-circular": "*",
+    "angular-google-maps": "~2.1.5"
+  }
+}
