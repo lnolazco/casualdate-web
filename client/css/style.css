@@ -315,9 +315,26 @@ footer {
 
 /* Select Circular*/
 div.cs-skin-circular{
-  margin-top: 120px;
-  margin-bottom: 100px;
-  margin-left: -42px;
+  margin-top: 70px;
+  margin-bottom: 60px;
+  left: 110px;
 }
 
 .angular-google-map-container { height: 400px; }
+
+
+.map-container {
+    border: 1px solid;
+    position: relative;
+}
+
+.map-container-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: #000000;
+    background: #ffffff url(/img/devil.gif) center center no-repeat;
+    z-index: 100;
+}

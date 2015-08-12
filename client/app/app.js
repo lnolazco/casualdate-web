@@ -11,10 +11,18 @@ angular.module('casualdateApp',['ngRoute','ngResource','uiGmapgoogle-maps'])
       })
       .when('/settings', {
         templateUrl: 'app/views/settings.html',
-        controller: 'mainCtrl'
+        controller: 'contactCtrl'
       })
       .when('/map', {
         templateUrl: 'app/views/map.html',
         controller: 'mapCtrl'
+      })
+      .when('/signup', {
+        templateUrl: 'app/views/signup.html'
       });
+  })
+  .value('userData', {
+    timestampPosition: null,
+    position: {},
+    id: null
   });

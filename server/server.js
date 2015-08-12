@@ -116,16 +116,16 @@ app.get('/local', function (req, res, next){
 });
 
 //signup page
+/*
 app.get('/signup', function (req, res, next){
-	res.sendFile(path.join(__dirname, '../client', 'signup.html'));
+	//res.sendFile(path.join(__dirname, '../client', 'signup.html'));
 
-/*  res.render('pages/signup', {
+  res.render('pages/signup', {
     user: req.user,
     url: req.url
   });
-	*/
 });
-
+*/
 app.post('/signup', function (req, res, next) {
 
   var User = app.models.user;

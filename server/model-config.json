@@ -33,5 +33,13 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "status": {
+    "dataSource": "casualdate",
+    "public": true
+  },
+  "contact": {
+    "dataSource": "casualdate",
+    "public": true
   }
 }

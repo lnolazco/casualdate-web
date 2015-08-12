@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Inspiration for Custom Select Elements | Demo 8</title>
+		<link rel="shortcut icon" href="../favico.ico">
+
+		<link rel="stylesheet" type="text/css" href="../selectCircular.css" />
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="container">
+			<!-- Top Navigation -->
+			<section>
+				<select id="selDemo"></select>
+			</section>
+		</div><!-- /container -->
+		<script src="../selectCircular.js"></script>
+		<script src="../public/lib/jquery/dist/jquery.min.js"></script>
+		<script>
+			(function() {
+				//set the images in an array
+				var images = ['img/smiley/happy_1.png',
+										'img/smiley/happy_2.png',
+										'img/smiley/happy_3.png',
+										'img/smiley/happy_4.png',
+										'img/smiley/happy_5.png'];
+				SelectCircular('selDemo', images,100,
+					 function (val) {
+						//alert(val);
+						console.log('selected ' + val);
+					}
+				);
+
+			})();
+		</script>
+	</body>
+</html>

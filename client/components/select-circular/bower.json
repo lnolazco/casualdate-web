@@ -1,0 +1,30 @@
+{
+  "name": "selectCircular",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lnolazco/selectCircular",
+  "authors": [
+    "Luis Nolazco <lnolazco@gmail.com>"
+  ],
+  "description": "Select element with a circular shape.",
+  "main": "selectCircular.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "select",
+    "circular",
+    "element"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}

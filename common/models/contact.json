@@ -1,0 +1,45 @@
+{
+  "name": "contact",
+  "plural": "contacts",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "userId": {
+      "type": "string",
+      "required": true
+    },
+    "alias": {
+      "type": "string",
+      "required": true
+    },
+    "gender": {
+      "type": "string",
+      "required": true
+    },
+    "ageRange": {
+      "type": "number"
+    },
+    "genderPref": {
+      "type": "string"
+    },
+    "ageRangePref": {
+      "type": "number"
+    },
+    "statusDuration": {
+      "type": "number"
+    },
+    "notification": {
+      "type": "boolean"
+    },
+    "distance": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

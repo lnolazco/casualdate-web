@@ -58,9 +58,9 @@ html(xmlns='http://www.w3.org/1999/xhtml')
                     a(href='/auth/logout') Login Out
                 else
                   li
-                    a(href='/login') Login
+                    a(href='#/main') Login
                   li
-                    a(href='/signup') Sign Up
+                    a(href='#/signup') Sign Up
 
     // MENU SECTION END
 
@@ -103,6 +103,8 @@ html(xmlns='http://www.w3.org/1999/xhtml')
     script(src='components/lodash/lodash.min.js')
     script(src='components/angular-google-maps/dist/angular-google-maps.min.js')
     script(src='//maps.googleapis.com/maps/api/js?sensor=false')
+    // GEOCODER
+    script(src='components/geocoder-service/geocoder-service.min.js')
 
     // JS application
     script(src='app/app.js')

@@ -15,22 +15,21 @@
             <div class="panel-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">Alias</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Choose alias" />
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Choose alias" ng-model="model.alias" />
               </div>
               <div class="form-group">
                 <label>Gender</label>
-                <select class="form-control">
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
+                <select class="form-control" ng-model="model.gender">
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="G">Male Homosexual</option>
+                  <option value="L">Female Homosexual</option>
                 </select>
               </div>
               <div class="form-group">
-                <label>Range age</label>
-                <select class="form-control">
-                  <option>18 - 25</option>
-                  <option>26 - 40</option>
-                  <option> > 40</option>
+                <label>Age range</label>
+                <select class="form-control" ng-model="model.ageRange"
+                  ng-options="ar.id as ar.name for ar in ageRanges">
                 </select>
               </div>
               <div class="form-group">
@@ -48,33 +47,23 @@
             <div class="panel-body">
               <div class="form-group">
                 <label>Gender</label>
-                <select class="form-control">
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
+                <select class="form-control" ng-model="model.genderPref">
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="G">Male Homosexual</option>
+                  <option value="L">Female Homosexual</option>
                 </select>
               </div>
               <div class="form-group">
-                <label>Range age</label>
-                <select class="form-control">
-                  <option>18 - 25</option>
-                  <option>26 - 40</option>
-                  <option> > 40</option>
+                <label>Age range</label>
+                <select class="form-control" ng-model="model.ageRangePref"
+                  ng-options="ar.id as ar.name for ar in ageRanges">
                 </select>
               </div>
               <div class="form-group">
                 <label>Status duration</label>
-                <select class="form-control">
-                  <option>1 hr</option>
-                  <option>4 hrs</option>
-                  <option>1 day</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Select Example</label>
-                <select class="form-control">
-                  <option>One Vale</option>
-                  <option>Two Vale</option>
+                <select class="form-control" ng-model="model.statusDuration"
+                  ng-options="duration.id as duration.name for duration in durations">
                 </select>
               </div>
             </div>
@@ -88,22 +77,20 @@
             <div class="panel-body">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" /> Active
+                  <input type="checkbox" ng-model="model.notification"/> Active
                 </label>
               </div>
               <div class="form-group">
                 <label>Distance</label>
-                <select class="form-control">
-                  <option> < 10 km</option>
-                  <option>10 km - 30 km</option>
-                  <option> > 30 km</option>
+                <select class="form-control" ng-model="model.distance"
+                  ng-options="d.id as d.name for d in distances">
                 </select>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-info">Save changes</button>
+      <button type="submit" class="btn btn-info" ng-click="save()">Save changes</button>
     </form>
   </div>
 </div>
