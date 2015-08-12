@@ -1,0 +1,6 @@
+# NodeJS dependencies
+node_modules/
+
+# Bower folder, remove content
+# but not the folder
+client/components/*
