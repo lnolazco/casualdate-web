@@ -13,20 +13,32 @@
                     icon="'icon'"
                     click="openContact">
     </ui-gmap-marker>
-    <ui-gmap-window show="contact.show" coords="contact.position" closeClick="closeClick()">
-                <div class="popup" style="width: 150px; height: 160px;">
-
-                    <form class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-md-6 control-label">Alias</label>
-                        <div class="col-md-6">
-                          <p class="form-control-static">{{contact.model.alias}}</p>
-                        </div>
-                      </div>
-                      <button ng-click="openChat()" class="btn btn-info">Contact</button>
-                    </form>
-
-                </div>
+    <ui-gmap-window show="contact.show" coords="contact.position" closeClick="closeClick()" control="contact.control">
+      <div class="popup" style="width: 150px; height: 160px;">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-md-6 control-label">Alias</label>
+            <div class="col-md-6">
+              <p class="form-control-static">{{contact.model.alias}}</p>
+            </div>
+          </div>
+          <div ng-controller='chatCtrl'>
+            <button ng-click="openChat()" class="btn btn-info">Contact</button>
+          </div>
+        </form>
+      </div>
     </ui-gmap-window>
   </ui-gmap-google-map>
 </div>
+<!-- Casual Chart -->
+<script type="text/ng-template" id="casualChat.html">
+  <div class="modal-header">
+      <h3 class="modal-title">{{contact.alias}}</h3>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li ng-repeat="message in messages">{{message}}</li>
+    </ul>
+    <input ng-model="m" autocomplete="off" /><button ng-click="sendMsg()">Send</button>
+  </div>
+</script>

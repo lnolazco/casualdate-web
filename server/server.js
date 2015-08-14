@@ -206,5 +206,28 @@ app.start = function() {
 
 // start the server if `$ node server.js`
 if (require.main === module) {
-	app.start();
+	//app.start();
+  app.io = require('socket.io')(app.start());
+
+  app.io.on('connection', function(socket){
+
+		socket.on('subscribe', function(room) {
+		    console.log('joining room', room);
+		    socket.join(room);
+		});
+
+//    console.log('a user connected');
+    socket.on('chat message', function(data){
+			console.log('sending room post', data.room);
+	    app.io.sockets.in(data.room).emit('conversation private post', {
+	        message: data.message
+	    });
+
+//        console.log('message: ' + msg);
+  //      app.io.emit('chat message', msg);
+    });
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
+  });
 }

@@ -1,4 +1,4 @@
-angular.module('casualdateApp',['ngRoute','ngResource','uiGmapgoogle-maps'])
+angular.module('casualdateApp',['ngRoute','ngResource','uiGmapgoogle-maps', 'ui.bootstrap'])
 .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -25,4 +25,7 @@ angular.module('casualdateApp',['ngRoute','ngResource','uiGmapgoogle-maps'])
     timestampPosition: null,
     position: {},
     id: null
+  })
+  .value('contactData', {
+    model: {}
   });

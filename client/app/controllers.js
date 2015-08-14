@@ -31,7 +31,7 @@ angular.module('casualdateApp')
     });
 
   }])
-  .controller('mapCtrl',['$scope', 'uiGmapIsReady', 'geoService', 'statusService','contactService', function ($scope, uiGmapIsReady, geoService, statusService, contactService){
+  .controller('mapCtrl',['$scope', 'uiGmapIsReady', 'geoService', 'statusService','contactService','$modal','contactData', function ($scope, uiGmapIsReady, geoService, statusService, contactService, $modal, contactData){
 
     var loadingContainer = $("<div class='map-container-loading'></div>");
     $(".map-container").append(loadingContainer);
@@ -90,6 +90,7 @@ angular.module('casualdateApp')
         if (success === undefined) return;
         $scope.contact.show = true;
         $scope.contact.model = success;
+        contactData.model = success;
       });
     };
     $scope.closeClick = function () {
@@ -101,6 +102,48 @@ angular.module('casualdateApp')
     $scope.contact = {
       show: false,
       model: {}
+    };
+  }])
+  .controller('chatCtrl',['$scope','$modal','contactData', function ($scope, $modal, contactData) {
+    $scope.openChat = function () {
+      var modalInstance = $modal.open({
+        templateUrl: 'casualChat.html',
+        controller: ['$scope','$modalInstance','contact', function ($scope, $modalInstance, contact) {
+          $scope.contact = contact;
+
+
+          //socket io
+          var socket = io(); //.connect('http://89.140.139.178:3000');
+          var myId = $("#userid").val();
+          var otherId = contact.userId;
+          var conversation_id = myId > otherId ? myId + 'y' + otherId : otherId + 'y' + myId;
+          socket.emit('subscribe', conversation_id);
+
+          $scope.messages = [];
+          $scope.sendMsg = function () {
+            socket.emit('chat message',
+              {
+                room: conversation_id,
+                message: $scope.m
+              }
+            );
+            $scope.m = '';
+          };
+          socket.on('conversation private post', function(data){
+            $scope.$apply(function () {
+              $scope.messages.push(data.message);
+            });
+          });
+
+        }],
+        size: 'lg',
+        resolve: {
+          contact: function () {
+            return contactData.model;
+            //return $scope.contact.model;
+          }
+        }
+      });
     };
   }])
   .controller('contactCtrl', ['$scope', 'contactService', 'userData', function ($scope, contactService, userData) {
