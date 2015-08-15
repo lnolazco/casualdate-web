@@ -30,9 +30,31 @@
     </ui-gmap-window>
   </ui-gmap-google-map>
 </div>
+
+
+
+
 <!-- Casual Chart -->
 <script type="text/ng-template" id="casualChat.html">
-  <div class="modal-header">
+  <div id="browser-window" >
+    <div id="viewport">
+      <div id="viewport-content">
+        <div class="bubble-container" ng-repeat="m in messages">
+          <div class="avatar avatar-{{m.side}}"><img src="{{m.avatar}}" /></div>
+          <div class="bubble bubble-{{m.side}}">{{m.text}}</div>
+        </div>
+      </div>
+    </div>
+    <form class="row row-chat">
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="messageText" placeholder="Type your message" />
+        <span class="input-group-btn">
+          <button ng-click="sendMsg()" class="btn btn-primary">Send</button>
+        </span>
+      </div>
+    </form>
+  </div>
+<!--  <div class="modal-header">
       <h3 class="modal-title">{{contact.alias}}</h3>
   </div>
   <div class="modal-body">
@@ -41,4 +63,5 @@
     </ul>
     <input ng-model="m" autocomplete="off" /><button ng-click="sendMsg()">Send</button>
   </div>
+  -->
 </script>

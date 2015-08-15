@@ -26,6 +26,7 @@ angular.module('casualdateApp',['ngRoute','ngResource','uiGmapgoogle-maps', 'ui.
     position: {},
     id: null
   })
-  .value('contactData', {
-    model: {}
+  .value('chatData', {
+    contactModel: {},
+    myModel: {}
   });

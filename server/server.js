@@ -220,10 +220,10 @@ if (require.main === module) {
     socket.on('chat message', function(data){
 			console.log('sending room post', data.room);
 	    app.io.sockets.in(data.room).emit('conversation private post', {
-	        message: data.message
+        	message: data.message
 	    });
+			console.log('message: ' + data.message);
 
-//        console.log('message: ' + msg);
   //      app.io.emit('chat message', msg);
     });
     socket.on('disconnect', function(){

@@ -31,29 +31,10 @@ angular.module('casualdateApp')
     });
 
   }])
-  .controller('mapCtrl',['$scope', 'uiGmapIsReady', 'geoService', 'statusService','contactService','$modal','contactData', function ($scope, uiGmapIsReady, geoService, statusService, contactService, $modal, contactData){
-
-    var loadingContainer = $("<div class='map-container-loading'></div>");
-    $(".map-container").append(loadingContainer);
-
-    uiGmapIsReady.promise(1).then(function(instances) {
-      instances.forEach(function(inst) {
-        geoService.getCurrentPosition(function (position) {
-
-          $scope.map.control.refresh({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-            }
-          );
-          //get and set markers
-          setMarkers(position);
-
-          $(".map-container-loading").remove();
-        });
-      });
-    });
-
+  .controller('mapCtrl',['$scope', 'uiGmapIsReady', 'geoService', 'statusService','contactService','$modal','chatData', function ($scope, uiGmapIsReady, geoService, statusService, contactService, $modal, chatData){
+    //define scope variables
     $scope.map = geoService.map;
+    //default position
     $scope.map.options =  {
       disableDefaultUI: !0,
       mapTypeControl: !1,
@@ -63,6 +44,33 @@ angular.module('casualdateApp')
       models: [],
       control: {}
     };
+    //add loading gif
+    var loadingContainer = $("<div class='map-container-loading'></div>");
+    $(".map-container").append(loadingContainer);
+
+    //get my position
+    uiGmapIsReady.promise(1).then(function(instances) {
+      instances.forEach(function(inst) {
+        geoService.getCurrentPosition(function (position) {
+
+          $scope.map.control.refresh({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+            }
+          );
+          //get contacts that match with my settings and paint them on the map
+          setMarkers(position);
+
+          $(".map-container-loading").remove(); //remove loading gif
+        });
+      });
+    });
+    //get my contact information
+    contactService.getContact($("#userid").val()).$promise.then(function (data) {
+      if (typeof data === "undefined") return; //you need to add your contact information go to settings here.
+      chatData.myModel = data;
+    })
+    //function to get contacts match with my settings
     var setMarkers = function (position) {
       statusService.getMapStatuses(position,10).$promise.then(function (data) {
         var i = 1;
@@ -80,6 +88,7 @@ angular.module('casualdateApp')
         console.log('error: ' + reason);
       });
     };
+    //when the user click on a marker in the map => it opens a mapwindow with the contact information
     $scope.openContact = function (a, b, marker) {
       $scope.contact.position = {
         latitude: marker.latitude,
@@ -90,7 +99,7 @@ angular.module('casualdateApp')
         if (success === undefined) return;
         $scope.contact.show = true;
         $scope.contact.model = success;
-        contactData.model = success;
+        chatData.contactModel = success;
       });
     };
     $scope.closeClick = function () {
@@ -104,18 +113,18 @@ angular.module('casualdateApp')
       model: {}
     };
   }])
-  .controller('chatCtrl',['$scope','$modal','contactData', function ($scope, $modal, contactData) {
+  .controller('chatCtrl',['$scope','$modal', function ($scope, $modal) {
     $scope.openChat = function () {
       var modalInstance = $modal.open({
         templateUrl: 'casualChat.html',
-        controller: ['$scope','$modalInstance','contact', function ($scope, $modalInstance, contact) {
-          $scope.contact = contact;
-
+        controller: ['$scope','$modalInstance','chatData', function ($scope, $modalInstance, chatData) {
+          $scope.contact = chatData.contactModel;
+          $scope.me = chatData.myModel;
 
           //socket io
           var socket = io(); //.connect('http://89.140.139.178:3000');
-          var myId = $("#userid").val();
-          var otherId = contact.userId;
+          var myId = $scope.me.userId;
+          var otherId = $scope.contact.userId;
           var conversation_id = myId > otherId ? myId + 'y' + otherId : otherId + 'y' + myId;
           socket.emit('subscribe', conversation_id);
 
@@ -124,25 +133,34 @@ angular.module('casualdateApp')
             socket.emit('chat message',
               {
                 room: conversation_id,
-                message: $scope.m
+                message: {
+                  alias: $scope.me.alias,
+                  text: $scope.messageText
+                }
               }
             );
-            $scope.m = '';
+            $scope.messageText = '';
           };
           socket.on('conversation private post', function(data){
             $scope.$apply(function () {
-              $scope.messages.push(data.message);
+              $scope.messages.push({
+                side: data.message.alias === $scope.me.alias ? 'right' : 'left',
+                text: data.message.text,
+                avatar: 'img/status2.png'
+              });
             });
+            // Animate
+           $("#viewport-content").animate({
+               bottom: $("#viewport-content").height() - $("#viewport").height()
+           }, 250);
           });
-
         }],
-        size: 'lg',
-        resolve: {
+        size: 'lg'
+        /*resolve: {
           contact: function () {
-            return contactData.model;
-            //return $scope.contact.model;
+            return chatData.model;
           }
-        }
+        }*/
       });
     };
   }])
