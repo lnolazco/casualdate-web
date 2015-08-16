@@ -141,12 +141,30 @@ angular.module('casualdateApp')
             );
             $scope.messageText = '';
           };
+          //select picture
+          var selectPicture = function (contact) {
+            if (typeof contact.picture === "undefined" || contact.picture.length === 0){
+              if (typeof contact.gender === "undefined") return "img/male.png";
+              return contact.gender === 'M' ? 'img/male.png' : 'img/female.png';
+            }
+            else
+              return contact.picture;
+          };
           socket.on('conversation private post', function(data){
+            var side, avatar;
+            if (data.message.alias === $scope.me.alias){
+              side = 'right';
+              avatar = selectPicture($scope.me);
+            }
+            else{
+              side = 'left';
+              avatar = selectPicture($scope.contact);
+            }
             $scope.$apply(function () {
               $scope.messages.push({
-                side: data.message.alias === $scope.me.alias ? 'right' : 'left',
+                side:  side,
                 text: data.message.text,
-                avatar: 'img/status2.png'
+                avatar: avatar
               });
             });
             // Animate
@@ -156,15 +174,10 @@ angular.module('casualdateApp')
           });
         }],
         size: 'lg'
-        /*resolve: {
-          contact: function () {
-            return chatData.model;
-          }
-        }*/
       });
     };
   }])
-  .controller('contactCtrl', ['$scope', 'contactService', 'userData', function ($scope, contactService, userData) {
+  .controller('contactCtrl', ['$scope', 'contactService', 'userData', 'Upload', function ($scope, contactService, userData, Upload) {
     $scope.model = {};
     var userId = $("#userid").val();
     contactService.getContact(userId).$promise.then(function (success) {
@@ -184,4 +197,18 @@ angular.module('casualdateApp')
         console.log('error: ' + reason);
       });
     };
+    //PICTURE
+    $scope.$watch('file', function () {
+        if ($scope.file != null)
+            $scope.uploadAsText($scope.file);
+    });
+    $scope.uploadAsText = function(file){
+      /* Convert the file to base64 data url */
+      Upload.dataUrl(file, function(success){
+              $scope.model.picture = success;
+          }, function(err){
+              console.log(err);
+          });
+    };
+
   }]);

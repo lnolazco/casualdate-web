@@ -1,4 +1,4 @@
-angular.module('casualdateApp',['ngRoute','ngResource','uiGmapgoogle-maps', 'ui.bootstrap'])
+angular.module('casualdateApp',['ngRoute','ngResource','uiGmapgoogle-maps', 'ui.bootstrap', 'ngFileUpload'])
 .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

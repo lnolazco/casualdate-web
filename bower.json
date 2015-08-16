@@ -29,6 +29,7 @@
     "angular-bootstrap": "~0.13.1",
     "angular-cookies": "~1.4.3",
     "select-circular": "*",
-    "angular-google-maps": "~2.1.5"
+    "angular-google-maps": "~2.1.5",
+    "ng-file-upload": "~6.2.1"
   }
 }

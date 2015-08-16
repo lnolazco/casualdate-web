@@ -22,6 +22,9 @@
     "ageRange": {
       "type": "number"
     },
+    "picture": {
+      "type": "string"
+    },
     "genderPref": {
       "type": "string"
     },
